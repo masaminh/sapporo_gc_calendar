@@ -4,6 +4,7 @@
 元ファイルは以下を参照.
 https://ckan.pf-sapporo.jp/dataset/garbage_collection_calendar
 """
+import sys
 from argparse import ArgumentParser, FileType
 from datetime import date
 
@@ -23,10 +24,14 @@ def main():
     df = pandas.read_csv(args.input, dtype='object')
 
     if args.area is None:
-        print('入力可能な地域名:')
+        print('入力可能な地域名:', file=sys.stderr)
         for area in df.columns[2:]:
-            print(' ' + area)
+            print(' ' + area, file=sys.stderr)
 
+        return
+
+    if args.area not in df.columns[2:]:
+        print('地域名が見つかりません.', file=sys.stderr)
         return
 
     gctypes = {

@@ -4,7 +4,7 @@
 元ファイルは以下を参照.
 https://ckan.pf-sapporo.jp/dataset/garbage_collection_calendar
 """
-from argparse import ArgumentParser
+from argparse import ArgumentParser, FileType
 from datetime import date
 
 import pandas
@@ -13,12 +13,21 @@ from icalendar import Calendar, Event, vDate
 
 def main():
     """メイン関数."""
-    p = ArgumentParser()
-    p.add_argument('area')
-    p.add_argument('input')
+    p = ArgumentParser(description='札幌市家庭ゴミ収集日カレンダーCSVをical化する')
+    p.add_argument('-a', '--area', help='地域名')
+    p.add_argument(
+        'input',
+        type=FileType(encoding='utf-8'), help='札幌市家庭ゴミ収集日カレンダーCSV')
     args = p.parse_args()
 
     df = pandas.read_csv(args.input, dtype='object')
+
+    if args.area is None:
+        print('入力可能な地域名:')
+        for area in df.columns[2:]:
+            print(' ' + area)
+
+        return
 
     gctypes = {
         '1': '燃やせるゴミ',

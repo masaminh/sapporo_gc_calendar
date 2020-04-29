@@ -7,10 +7,11 @@ verify_ssl = true
 pydocstyle = "*"
 pylint = "*"
 autopep8 = "*"
+flake8 = "*"
 
 [packages]
 pandas = "*"
 icalendar = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.8"

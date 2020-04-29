@@ -1,0 +1,13 @@
+{
+    "python.pythonPath": ".venv/bin/python",
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": [
+        "--max-complexity=20"
+    ],
+    "python.formatting.autopep8Args": [
+        "--aggressive", "--aggressive",
+    ],
+    "editor.formatOnSave": true,
+    "python.linting.pydocstyleEnabled": true
+}

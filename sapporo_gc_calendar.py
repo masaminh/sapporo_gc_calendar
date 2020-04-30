@@ -6,8 +6,8 @@ https://ckan.pf-sapporo.jp/dataset/garbage_collection_calendar
 """
 import sys
 from argparse import ArgumentParser, FileType
-from datetime import date
 
+import dateutil.parser
 import pandas
 from icalendar import Calendar, Event, vDate
 
@@ -47,7 +47,7 @@ def main():
 
     for datestr, gctype in zip(df['日付'], df[args.area]):
         if gctype in gctypes:
-            dt = date.fromisoformat(datestr)
+            dt = dateutil.parser.parse(datestr)
             event = Event()
             event.add('SUMMARY', gctypes[gctype])
             event.add('DTSTART', vDate(dt))
